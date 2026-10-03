@@ -6,13 +6,13 @@
   <title>Boda de Lestter & Serafín | 27 de Febrero de 2027</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Cinzel Decorative, Cormorant Garamond & Montserrat -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&family=MedievalSharp&display=swap" rel="stylesheet">
-  <!-- Canvas Confetti for celebratory RSVP feedback -->
+  <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <!-- Leaflet.js para mapas interactivos nativos -->
+  <!-- Leaflet.js -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
@@ -54,7 +54,6 @@
   </script>
 
   <style>
-    /* Vintage parchment textures and magic seal styling */
     .bg-parchment-pattern {
       background-color: #fcf8ee;
       background-image: radial-gradient(#d3c7a9 0.75px, transparent 0.75px), radial-gradient(#d3c7a9 0.75px, #fcf8ee 0.75px);
@@ -66,73 +65,38 @@
       box-shadow: 0 8px 24px rgba(67, 75, 49, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.4), inset 0 -3px 6px rgba(0, 0, 0, 0.6);
     }
 
-    /* Envelope 3D Fold & Flip Animations */
-    .envelope-perspective {
-      perspective: 1400px;
-    }
+    .envelope-perspective { perspective: 1400px; }
+    .envelope-flap { transform-origin: top; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+    .envelope-unfolded .envelope-flap { transform: rotateX(180deg); z-index: 10; }
 
-    .envelope-flap {
-      transform-origin: top;
-      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .envelope-unfolded .envelope-flap {
-      transform: rotateX(180deg);
-      z-index: 10;
-    }
-
-    /* Subtle pulse on seal */
     @keyframes pulseGlow {
       0%, 100% { box-shadow: 0 0 15px rgba(197, 160, 89, 0.6); transform: scale(1); }
       50% { box-shadow: 0 0 35px rgba(229, 200, 139, 0.95); transform: scale(1.04); }
     }
-    .seal-glow {
-      animation: pulseGlow 2s infinite ease-in-out;
-    }
+    .seal-glow { animation: pulseGlow 2s infinite ease-in-out; }
+    .ink-emerald { color: #174228; }
 
-    /* Emerald ink for magical Hogwarts vibe */
-    .ink-emerald {
-      color: #174228;
-    }
-
-    /* Estilos de pines interactivos para ambos mapas */
     .custom-pin {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      color: white;
-      font-size: 16px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
-      border: 2px solid #fcf8ee;
-      transition: transform 0.2s ease;
-      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; color: white; font-size: 16px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35); border: 2px solid #fcf8ee;
+      transition: transform 0.2s ease; cursor: pointer;
     }
-    .custom-pin:hover {
-      transform: scale(1.25);
-    }
+    .custom-pin:hover { transform: scale(1.25); }
 
-    /* Colores Gastronomía */
-    .pin-tapas { background: #545d3b; }   /* Verde oliva */
-    .pin-mex { background: #c5a059; }     /* Mostaza / Dorado */
-    .pin-japon { background: #b43d3d; }   /* Burdeos / Rojo japonés */
-    .pin-burger { background: #b8602b; }  /* Terracota */
+    .pin-tapas { background: #545d3b; }
+    .pin-mex { background: #c5a059; }
+    .pin-japon { background: #b43d3d; }
+    .pin-burger { background: #b8602b; }
+    .pin-hotel-centro { background: #2c4d6f; }
+    .pin-hotel-playa { background: #0e7490; }
 
-    /* Colores Alojamiento */
-    .pin-hotel-centro { background: #2c4d6f; }  /* Azul marino señorial */
-    .pin-hotel-playa { background: #0e7490; }   /* Turquesa / Azul mar */
-
-    /* Estilización del popup en los mapas acorde a la paleta */
     .leaflet-popup-content-wrapper {
-      border-radius: 18px !important;
-      background: #fcf8ee !important;
-      border: 1px solid #d7dbc5 !important;
-      box-shadow: 0 12px 28px rgba(0,0,0,0.18) !important;
+      border-radius: 18px !important; background: #fcf8ee !important;
+      border: 1px solid #d7dbc5 !important; box-shadow: 0 12px 28px rgba(0,0,0,0.18) !important;
       padding: 4px !important;
     }
-    .leaflet-popup-tip {
-      background: #fcf8ee !important;
-    }
+    .leaflet-popup-tip { background: #fcf8ee !important; }
   </style>
 </head>
 
@@ -142,10 +106,8 @@
 <div id="magicEntranceGate" class="fixed inset-0 z-50 flex items-center justify-center bg-olive-950/95 backdrop-blur-md px-4 py-6 transition-all duration-1000">
   <div class="absolute inset-0 opacity-30 pointer-events-none bg-[radial-gradient(#e5c88b_1.5px,transparent_1.5px)] [background-size:28px_28px]"></div>
 
-  <!-- MAIN INTERACTIVE ENVELOPE / LETTER CONTAINER -->
   <div class="relative w-full max-w-xl mx-auto flex flex-col items-center justify-center">
 
-    <!-- INTRO PROMPT (VISIBLE BEFORE OPENING) -->
     <div id="gatePrompt" class="text-center mb-6 transition-opacity duration-500">
       <span class="inline-block uppercase tracking-[0.3em] text-xs font-semibold text-gold px-4 py-1.5 rounded-full border border-gold/40 bg-olive-900/80 mb-2">
         ⚡ Entrega Especial por Lechuza
@@ -158,30 +120,26 @@
       </p>
     </div>
 
-    <!-- THE ENVELOPE CARD -->
+    <!-- ENVELOPE -->
     <div id="gateEnvelope" class="relative w-full max-w-[480px] h-[300px] sm:h-[320px] envelope-perspective cursor-pointer transition-all duration-700">
 
-      <!-- Envelope Back Sheet -->
       <div class="absolute inset-0 bg-[#e7ddc4] rounded-2xl shadow-2xl border-2 border-[#b59d72] overflow-hidden">
         <div id="envelopeAddress" class="absolute inset-0 p-6 sm:p-8 flex flex-col justify-center items-end text-right font-letter text-sm sm:text-base leading-relaxed ink-emerald select-none transition-opacity duration-500">
           <p class="italic text-xs font-sans text-olive-700 tracking-wider uppercase mb-1">Para:</p>
-          <p class="font-bold text-base sm:text-lg">A la atención del Invitado/a de Honor</p>
-          <p>La alcoba más acogedora de la casa</p>
+          <p id="guestEnvelopeName" class="font-bold text-base sm:text-lg">A la atención de los Invitados de Honor</p>
+          <p id="guestEnvelopeLoc">La alcoba más acogedora de la casa</p>
           <p>Alicante, Comunidad Valenciana</p>
           <span class="mt-4 text-xs tracking-widest text-[#6a764a] uppercase font-sans border-t border-[#b59d72]/40 pt-1">Enlace Lestter & Serafín</span>
         </div>
       </div>
 
-      <!-- Envelope Folded Pockets -->
       <div class="absolute inset-0 pointer-events-none rounded-2xl overflow-hidden z-20">
         <div class="absolute bottom-0 w-full h-[65%] bg-gradient-to-t from-[#ded0b1] to-[#e4d7b9] border-t-2 border-[#b59d72]/60 [clip-path:polygon(0_35%,50%_0%,100%_35%,100%_100%,0_100%)] shadow-inner"></div>
       </div>
 
-      <!-- Envelope Top Triangular Flap -->
       <div id="gateFlap" class="envelope-flap absolute top-0 left-0 right-0 h-[58%] bg-[#dfd2b4] rounded-t-2xl [clip-path:polygon(0_0,100%_0,50%_100%)] z-30 shadow-md border-b border-[#b59d72]/50">
       </div>
 
-      <!-- Red Wax Seal Button in Center -->
       <div id="gateWaxSeal" onclick="openHogwartsLetter(event)" class="absolute top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 cursor-pointer transform hover:scale-110 active:scale-95 transition duration-300">
         <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-[#801818] via-[#a32222] to-[#540d0d] seal-shadow seal-glow border-2 border-amber-300/40 flex flex-col items-center justify-center">
           <span class="font-magic text-gold-light text-lg sm:text-xl font-black drop-shadow tracking-tight">L & S</span>
@@ -208,11 +166,11 @@
         </div>
 
         <div class="text-left font-serif text-olive-900 space-y-4 leading-relaxed text-base sm:text-lg">
-          <p class="font-bold ink-emerald font-letter text-lg sm:text-xl">
-            Estimado/a invitado/a de honor,
+          <p id="guestLetterGreeting" class="font-bold ink-emerald font-letter text-lg sm:text-xl">
+            Estimados/as invitados/as de honor,
           </p>
           <p>
-            Tenemos el inmenso placer y la alegría de informarle de que ha sido formalmente convocado/a a la solemne celebración del matrimonio de:
+            Tenemos el inmenso placer y la alegría de informaros de que habéis sido formalmente convocados a la solemne celebración del matrimonio de:
           </p>
 
           <div class="bg-olive-100/70 border border-gold/50 rounded-2xl py-3 px-4 text-center my-2 shadow-inner">
@@ -229,7 +187,7 @@
           </p>
 
           <p class="text-xs sm:text-sm text-olive-800 bg-amber-50 p-3 rounded-xl border border-amber-200">
-            ⚡ <strong>Importante:</strong> Se ruega formalizar su confirmación (RSVP) antes del <strong>25 de diciembre de 2026</strong>.
+            ⚡ <strong>Importante:</strong> Se ruega formalizar vuestra confirmación (RSVP) antes del <strong>25 de diciembre de 2026</strong>.
           </p>
 
           <p class="font-serif italic text-right text-sm text-olive-700 pt-2">
@@ -320,10 +278,7 @@
     </h2>
     <div class="w-24 h-1 bg-gold mx-auto mb-10 rounded-full"></div>
 
-    <!-- Contenedor con la foto integrada a dos columnas -->
     <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center text-left my-8">
-
-      <!-- Fotografía con marco artesanal dorado/olivo -->
       <div class="md:col-span-5 flex justify-center">
         <div class="relative p-2 rounded-3xl bg-gradient-to-tr from-gold-dark via-gold to-gold-light shadow-2xl max-w-xs sm:max-w-sm w-full group">
           <div class="overflow-hidden rounded-[20px] bg-olive-950 aspect-[4/5] relative">
@@ -333,7 +288,6 @@
               class="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out filter contrast-[1.02]"
               loading="lazy"
             />
-            <!-- Medallón decorativo de esquina -->
             <div class="absolute -bottom-3 -right-3 w-10 h-10 rounded-full bg-olive-900 border-2 border-gold flex items-center justify-center shadow-lg text-gold font-magic text-xs">
               ✦
             </div>
@@ -341,7 +295,6 @@
         </div>
       </div>
 
-      <!-- Texto de Bienvenida -->
       <div class="md:col-span-7 font-serif text-lg md:text-xl text-olive-800 leading-relaxed space-y-4">
         <p>
           Querida familia y queridos amigos: tras un camino lleno de aventuras, complicidad y momentos inolvidables, ha llegado la hora de sellar nuestro juramento.
@@ -350,10 +303,9 @@
           Nos hace una ilusión inmensa que nos acompañéis el próximo <strong>27 de febrero de 2027</strong> en Alicante. Hemos preparado este rincón digital para que encontréis todos los detalles, horarios y recomendaciones de viaje para disfrutar al máximo con nosotros.
         </p>
       </div>
-
     </div>
 
-    <!-- Countdown Component -->
+    <!-- Countdown -->
     <div class="mt-14 bg-white/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-xl border border-olive-200 max-w-2xl mx-auto">
       <h3 class="font-magic text-sm uppercase tracking-widest text-olive-700 mb-6">
         Cuenta atrás para el gran día
@@ -522,60 +474,31 @@
         <!-- Name and Surname -->
         <div>
           <label for="fullName" class="block font-serif text-base font-semibold text-olive-900 mb-1">
-            Nombre y Apellidos <span class="text-red-500">*</span>
+            Nombre / Personas Invitadas <span class="text-red-500">*</span>
           </label>
           <input type="text" id="fullName" required placeholder="Ej. Carlos Martínez García" class="w-full px-4 py-3 rounded-xl border border-olive-300 focus:ring-2 focus:ring-olive-600 focus:border-transparent outline-none transition bg-olive-50/50">
         </div>
 
-        <!-- Attendance Radio Buttons -->
-        <div>
+        <!-- Attendance Radio Buttons (Se inyectan dinámicamente) -->
+        <div id="attendanceSection">
           <span class="block font-serif text-base font-semibold text-olive-900 mb-2">
-            ¿Nos acompañas el 27 de febrero de 2027? <span class="text-red-500">*</span>
+            ¿Nos acompañáis el 27 de febrero de 2027? <span class="text-red-500">*</span>
           </span>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <label class="flex items-center space-x-3 p-3.5 rounded-xl border-2 border-olive-200 cursor-pointer hover:bg-olive-50 transition has-[:checked]:border-olive-700 has-[:checked]:bg-olive-100/60">
-              <input type="radio" name="attendance" value="si" required checked class="text-olive-700 focus:ring-olive-600 w-4 h-4">
-              <span class="font-medium text-olive-900 text-sm">¡Sí, allí estaré con vosotros! ✨</span>
-            </label>
-            <label class="flex items-center space-x-3 p-3.5 rounded-xl border-2 border-olive-200 cursor-pointer hover:bg-olive-50 transition has-[:checked]:border-olive-700 has-[:checked]:bg-olive-100/60">
-              <input type="radio" name="attendance" value="no" class="text-olive-700 focus:ring-olive-600 w-4 h-4">
-              <span class="font-medium text-olive-900 text-sm">Sintiéndolo mucho, no podré asistir</span>
-            </label>
+          <div class="grid grid-cols-1 gap-2.5" id="attendanceOptionsContainer">
+            <!-- Rellenado por JS dinámicamente -->
           </div>
         </div>
 
-        <!-- Modalidad de Asistencia: Solo o con Acompañante -->
-        <div id="companionsWrapper" class="space-y-3">
-          <span class="block font-serif text-base font-semibold text-olive-900">
-            ¿Cómo vendrás a la celebración? <span class="text-red-500">*</span>
-          </span>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <label class="flex items-center space-x-3 p-3.5 rounded-xl border-2 border-olive-200 cursor-pointer hover:bg-olive-50 transition has-[:checked]:border-olive-700 has-[:checked]:bg-olive-100/60">
-              <input type="radio" name="companionMode" value="solo" checked onchange="handleCompanionToggle()" class="text-olive-700 focus:ring-olive-600 w-4 h-4">
-              <span class="font-medium text-olive-900 text-sm">👤 Vengo solo/a (1 persona)</span>
-            </label>
-            <label class="flex items-center space-x-3 p-3.5 rounded-xl border-2 border-olive-200 cursor-pointer hover:bg-olive-50 transition has-[:checked]:border-olive-700 has-[:checked]:bg-olive-100/60">
-              <input type="radio" name="companionMode" value="acompanante" onchange="handleCompanionToggle()" class="text-olive-700 focus:ring-olive-600 w-4 h-4">
-              <span class="font-medium text-olive-900 text-sm">👥 Voy con acompañante (2 personas)</span>
-            </label>
-          </div>
-
-          <!-- Caja desplegable para el nombre del acompañante -->
-          <div id="companionNameBox" class="hidden mt-3 bg-olive-50/70 p-4 rounded-2xl border border-olive-300">
-            <label for="companionName" class="block font-serif text-sm font-semibold text-olive-900 mb-1">
-              Nombre y Apellidos de tu acompañante <span class="text-red-500">*</span>
-            </label>
-            <input type="text" id="companionName" placeholder="Indica su nombre y apellidos completos" class="w-full px-4 py-2.5 rounded-xl border border-olive-300 focus:ring-2 focus:ring-olive-600 outline-none bg-white text-sm transition">
-          </div>
-        </div>
+        <!-- Contenedor adicional dinámico para indicar quién asiste si solo va uno -->
+        <div id="customDetailsWrapper" class="hidden"></div>
 
         <!-- Dietary Restrictions & Allergies Section -->
-        <div class="bg-olive-50/80 p-5 rounded-2xl border border-olive-200">
+        <div id="dietSection" class="bg-olive-50/80 p-5 rounded-2xl border border-olive-200">
           <label class="block font-serif text-base font-semibold text-olive-900 mb-2">
             Alergias, Intolerancias o Preferencias Alimentarias
           </label>
           <p class="text-xs text-olive-700 mb-3">
-            Queremos que disfrutéis al 100% del menú. Selecciona las que correspondan o indícalas a continuación (Por favor, especifica si la alergia/intolerancia es tuya o de tu acompañante en el recuadro de abajo):
+            Queremos que disfrutéis al 100% del menú. Selecciona las que correspondan o indícalas a continuación (Por favor, especifica de quién es cada alergia en el recuadro de abajo):
           </p>
           <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-3 text-xs font-medium">
             <label class="inline-flex items-center space-x-2">
@@ -603,18 +526,18 @@
               <span>Marisco / Pescado</span>
             </label>
           </div>
-          <textarea id="dietDetails" rows="2" placeholder="Otras especificaciones o alergias de ti o tu acompañante..." class="w-full px-3 py-2 text-sm rounded-xl border border-olive-300 focus:ring-2 focus:ring-olive-600 outline-none bg-white"></textarea>
+          <textarea id="dietDetails" rows="2" placeholder="Otras especificaciones o alergias de cada uno..." class="w-full px-3 py-2 text-sm rounded-xl border border-olive-300 focus:ring-2 focus:ring-olive-600 outline-none bg-white"></textarea>
         </div>
 
-        <!-- Song recommendation for the dance party -->
-        <div>
+        <!-- Song recommendation -->
+        <div id="songSection">
           <label for="favoriteSong" class="block font-serif text-base font-semibold text-olive-900 mb-1">
             ¿Qué canción no puede faltar en la fiesta? 🎶
           </label>
           <input type="text" id="favoriteSong" placeholder="Título de la canción y artista" class="w-full px-4 py-3 rounded-xl border border-olive-300 focus:ring-2 focus:ring-olive-600 outline-none bg-olive-50/50">
         </div>
 
-        <!-- Special dedication / message -->
+        <!-- Special dedication -->
         <div>
           <label for="dedication" class="block font-serif text-base font-semibold text-olive-900 mb-1">
             Dedicatoria o mensaje para Lestter & Serafín
@@ -630,14 +553,14 @@
         </div>
       </form>
 
-      <!-- Dynamic Success Feedback Message Box -->
+      <!-- Feedback Success Box -->
       <div id="rsvpSuccessBox" class="hidden mt-6 p-6 bg-olive-100/90 border-2 border-olive-600 rounded-2xl text-center text-olive-950 animate-fade-in">
         <div class="w-14 h-14 bg-olive-700 text-gold rounded-full flex items-center justify-center mx-auto mb-3 shadow">
           <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
         </div>
         <h3 class="font-magic text-xl font-bold text-olive-900">¡Confirmación Recibida con Éxito!</h3>
         <p id="rsvpSuccessText" class="font-serif text-base text-olive-800 mt-2">
-          Muchísimas gracias por responder. Hemos registrado tus preferencias y estamos deseando verte el 27 de febrero de 2027.
+          Muchísimas gracias por responder. Hemos registrado vuestras preferencias y estamos deseando veros el 27 de febrero de 2027.
         </p>
       </div>
 
@@ -647,7 +570,6 @@
 
 <section id="guia" class="py-24 px-4 md:px-8 bg-olive-100/50 border-t border-b border-olive-200">
   <div class="max-w-6xl mx-auto">
-
     <div class="text-center mb-16">
       <span class="uppercase tracking-widest text-xs font-semibold text-olive-700 block mb-2">Para quienes venís de fuera o queréis disfrutar el fin de semana</span>
       <h2 class="font-magic text-3xl sm:text-4xl md:text-5xl text-olive-950">Guía de Alicante & Hospedaje</h2>
@@ -658,8 +580,7 @@
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-
-      <!-- COLUMNA 1: HOSPEDAJE RECOMENDADO (MAPA INTERACTIVO NATIVO) -->
+      <!-- MAPA HOTELES -->
       <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-md border border-olive-200 flex flex-col justify-between">
         <div>
           <div class="flex items-center space-x-3 mb-4 pb-3 border-b border-olive-200">
@@ -672,7 +593,6 @@
             </div>
           </div>
 
-          <!-- Filtros interactivos de alojamiento -->
           <div class="flex flex-wrap gap-1.5 sm:gap-2 mb-4 text-xs font-serif" id="hotelFilters">
             <button onclick="filterHotelMap('todos', this)" class="hotel-filter-btn px-3 py-1.5 rounded-full bg-olive-900 text-gold font-bold transition shadow-sm border border-gold/40">
               Todos
@@ -685,7 +605,6 @@
             </button>
           </div>
 
-          <!-- Contenedor del Mapa Leaflet Hoteles -->
           <div id="hotelesMap" class="w-full h-[380px] sm:h-[420px] rounded-2xl overflow-hidden border-2 border-gold/40 shadow-inner z-0"></div>
         </div>
 
@@ -694,12 +613,12 @@
         </p>
       </div>
 
-      <!-- COLUMNA 2: GASTRONOMÍA Y TAPEO (MAPA INTERACTIVO NATIVO) -->
+      <!-- MAPA RESTAURANTES -->
       <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-md border border-olive-200 flex flex-col justify-between">
         <div>
           <div class="flex items-center space-x-3 mb-4 pb-3 border-b border-olive-200">
             <div class="w-10 h-10 rounded-full bg-olive-900 text-gold flex items-center justify-center font-bold text-lg">
-              🍽️
+              🍽️️
             </div>
             <div>
               <h3 class="font-magic text-xl text-olive-900">Dónde Cenar y Tapear</h3>
@@ -707,7 +626,6 @@
             </div>
           </div>
 
-          <!-- Filtros interactivos de gastronomía -->
           <div class="flex flex-wrap gap-1.5 sm:gap-2 mb-4 text-xs font-serif" id="mapFilters">
             <button onclick="filterMap('todos', this)" class="filter-btn px-3 py-1.5 rounded-full bg-olive-900 text-gold font-bold transition shadow-sm border border-gold/40">
               Todos
@@ -726,7 +644,6 @@
             </button>
           </div>
 
-          <!-- Contenedor del Mapa Leaflet Restaurantes -->
           <div id="alicanteMap" class="w-full h-[380px] sm:h-[420px] rounded-2xl overflow-hidden border-2 border-gold/40 shadow-inner z-0"></div>
         </div>
 
@@ -734,15 +651,12 @@
           Toca cualquier icono para ver detalles del local y abrir la ruta directa en Google Maps.
         </p>
       </div>
-
     </div>
-
   </div>
 </section>
 
 <section id="regalo" class="py-24 px-4 md:px-8 bg-parchment-pattern relative">
   <div class="max-w-3xl mx-auto text-center">
-
     <span class="font-serif italic text-gold-dark text-lg md:text-xl block mb-2">Un detalle para nuestro futuro</span>
     <h2 class="font-magic text-3xl sm:text-4xl md:text-5xl text-olive-950">Regalo de bodas</h2>
     <div class="w-20 h-1 bg-gold mx-auto mt-4 rounded-full"></div>
@@ -753,7 +667,6 @@
     </p>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 text-left">
-
       <!-- IBAN Card -->
       <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-xl border border-olive-300 relative group flex flex-col justify-between">
         <div>
@@ -792,19 +705,17 @@
 
         <div class="mt-5">
           <button onclick="copyToClipboard('+34 600 00 00 00', this)" class="w-full bg-olive-800 hover:bg-olive-900 text-gold-light py-2.5 px-4 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all flex items-center justify-center space-x-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
             <span>Copiar Teléfono Bizum</span>
           </button>
         </div>
       </div>
-
     </div>
 
     <div id="copyToast" class="fixed bottom-6 right-6 z-50 bg-olive-950 text-gold-light px-5 py-3 rounded-2xl shadow-2xl border border-gold/40 flex items-center space-x-3 transition-opacity duration-300 opacity-0 pointer-events-none">
       <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
       <span class="text-sm font-medium">¡Copiado con éxito en el portapapeles!</span>
     </div>
-
   </div>
 </section>
 
@@ -825,6 +736,221 @@
 </footer>
 
 <script>
+  /* -------------------------------------------------------------
+     BASE DE DATOS DE INVITADOS CON 3 TIPOS BIEN DIFERENCIADOS:
+     - tipo: 'pareja'          -> Pareja conocida (ambos nombres dados)
+     - tipo: 'individual_plus'  -> Titular con derecho a 1 acompañante opcional
+     - tipo: 'individual'       -> Titular único sin acompañante
+     ------------------------------------------------------------- */
+  const INVITADOS = {
+    // === TIPO 1: PAREJAS CONOCIDAS (SERAFÍN) ===
+    "noe-pablo": { tipo: "pareja", p1: "Noe", p2: "Pablo", nombre: "Noe & Pablo", saludo: "Queridos Noe y Pablo", parte: "Serafín" },
+    "paloma-fer": { tipo: "pareja", p1: "Paloma", p2: "Fernando", nombre: "Paloma & Fer", saludo: "Queridos Paloma y Fer", parte: "Serafín" },
+    "chelo-alex": { tipo: "pareja", p1: "Chelo", p2: "Alex", nombre: "Chelo & Alex", saludo: "Queridos Chelo y Alex", parte: "Serafín" },
+    "celia-alberto": { tipo: "pareja", p1: "Celia", p2: "Alberto", nombre: "Celia & Alberto", saludo: "Queridos Celia y Alberto", parte: "Serafín" },
+    "isa-maik": { tipo: "pareja", p1: "Isa", p2: "Maik", nombre: "Isa & Maik", saludo: "Queridos Isa y Maik", parte: "Serafín" },
+    "javi-loles": { tipo: "pareja", p1: "Javi", p2: "Loles", nombre: "Javi & Loles", saludo: "Queridos Javi y Loles", parte: "Serafín" },
+    "lola-robert": { tipo: "pareja", p1: "Lola", p2: "Robert", nombre: "Lola & Robert", saludo: "Queridos Lola y Robert", parte: "Serafín" },
+    "cari-alex": { tipo: "pareja", p1: "Cari", p2: "Alex", nombre: "Cari & Alex", saludo: "Queridos Cari y Alex", parte: "Serafín" },
+    "ana-antonio": { tipo: "pareja", p1: "Ana", p2: "Antonio", nombre: "Ana & Antonio", saludo: "Queridos Ana y Antonio", parte: "Serafín" },
+    "antonio-auxi": { tipo: "pareja", p1: "Antonio", p2: "Auxi", nombre: "Antonio & Auxi", saludo: "Queridos Antonio y Auxi", parte: "Serafín" },
+
+    // === TIPO 1: PAREJAS CONOCIDAS (LESTTER) ===
+    "celia-alex": { tipo: "pareja", p1: "Celia", p2: "Alex", nombre: "Celia & Alex", saludo: "Queridos Celia y Alex", parte: "Lestter" },
+    "annabel-gustavo": { tipo: "pareja", p1: "Annabel", p2: "Gustavo", nombre: "Annabel & Gustavo", saludo: "Queridos Annabel y Gustavo", parte: "Lestter" },
+    "gretchen-jan": { tipo: "pareja", p1: "Gretchen", p2: "Jan", nombre: "Gretchen & Jan", saludo: "Queridos Gretchen y Jan", parte: "Lestter" },
+    "cristina-david": { tipo: "pareja", p1: "Cristina", p2: "David", nombre: "Cristina & David", saludo: "Queridos Cristina y David", parte: "Lestter" },
+    "gema-patxi": { tipo: "pareja", p1: "Gema", p2: "Patxi", nombre: "Gema & Patxi", saludo: "Queridos Gema y Patxi", parte: "Lestter" }
+  };
+
+  let currentGuestId = "general";
+  let currentGuestData = null;
+
+  // Lector de parámetros URL universal
+  function obtenerParametroInvitado() {
+    try {
+      const decodedHref = decodeURIComponent(window.location.href);
+      const match = decodedHref.match(/[?&]inv=([^&#/\s]+)/i);
+      if (match && match[1]) {
+        return match[1].toLowerCase().trim();
+      }
+    } catch (e) {
+      console.error("Error al leer URL:", e);
+    }
+    return null;
+  }
+
+  function personalizarInvitacion() {
+    const guestKey = obtenerParametroInvitado();
+
+    if (guestKey && INVITADOS[guestKey]) {
+      currentGuestId = guestKey;
+      currentGuestData = INVITADOS[guestKey];
+
+      // 1. Personalizar sobre exterior
+      const envelopeNameEl = document.getElementById('guestEnvelopeName');
+      if (envelopeNameEl) envelopeNameEl.textContent = currentGuestData.nombre;
+
+      // 2. Personalizar carta interior
+      const letterGreetingEl = document.getElementById('guestLetterGreeting');
+      if (letterGreetingEl) letterGreetingEl.textContent = `${currentGuestData.saludo},`;
+
+      // 3. Fijar el nombre en el formulario RSVP
+      const fullNameInput = document.getElementById('fullName');
+      if (fullNameInput) {
+        fullNameInput.value = currentGuestData.nombre;
+        fullNameInput.readOnly = true;
+        fullNameInput.classList.add('bg-olive-200/50', 'text-olive-900', 'cursor-not-allowed');
+      }
+
+      renderAttendanceOptions(currentGuestData);
+    } else {
+      renderAttendanceOptions({ tipo: "individual_plus", nombre: "" });
+    }
+  }
+
+  // Renderizar las opciones exactas según el tipo de invitado
+  function renderAttendanceOptions(gData) {
+    const container = document.getElementById('attendanceOptionsContainer');
+    const detailsWrapper = document.getElementById('customDetailsWrapper');
+    if (!container) return;
+
+    detailsWrapper.innerHTML = '';
+    detailsWrapper.classList.add('hidden');
+
+    if (gData.tipo === "pareja") {
+      // CASO 1: PAREJA CONOCIDA
+      container.innerHTML = `
+        <label class="flex items-center space-x-3 p-3.5 rounded-xl border-2 border-olive-200 cursor-pointer hover:bg-olive-50 transition has-[:checked]:border-olive-700 has-[:checked]:bg-olive-100/60">
+          <input type="radio" name="attendanceChoice" value="ambos" checked onchange="handleCoupleToggle()" class="text-olive-700 focus:ring-olive-600 w-4 h-4">
+          <span class="font-medium text-olive-900 text-sm">👥 ¡Vamos los dos! ✨ (2 personas)</span>
+        </label>
+        <label class="flex items-center space-x-3 p-3.5 rounded-xl border-2 border-olive-200 cursor-pointer hover:bg-olive-50 transition has-[:checked]:border-olive-700 has-[:checked]:bg-olive-100/60">
+          <input type="radio" name="attendanceChoice" value="solo_uno" onchange="handleCoupleToggle()" class="text-olive-700 focus:ring-olive-600 w-4 h-4">
+          <span class="font-medium text-olive-900 text-sm">👤 Solo va uno de los dos (1 persona)</span>
+        </label>
+        <label class="flex items-center space-x-3 p-3.5 rounded-xl border-2 border-olive-200 cursor-pointer hover:bg-olive-50 transition has-[:checked]:border-olive-700 has-[:checked]:bg-olive-100/60">
+          <input type="radio" name="attendanceChoice" value="ninguno" onchange="handleCoupleToggle()" class="text-olive-700 focus:ring-olive-600 w-4 h-4">
+          <span class="font-medium text-olive-900 text-sm">Sintiéndolo mucho, no podemos asistir</span>
+        </label>
+      `;
+
+      // Cuadro dinámico para elegir cuál de los dos asiste
+      detailsWrapper.innerHTML = `
+        <div id="whoAttendsBox" class="bg-olive-100/70 p-4 rounded-2xl border border-olive-300">
+          <span class="block font-serif text-sm font-semibold text-olive-900 mb-2">
+            ¿Quién de los dos asistirá a la celebración? <span class="text-red-500">*</span>
+          </span>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="flex items-center space-x-2.5 p-3 rounded-xl border border-olive-300 bg-white cursor-pointer hover:bg-olive-50 transition has-[:checked]:border-olive-700 has-[:checked]:bg-olive-200/60">
+              <input type="radio" name="whoAttends" value="${gData.p1}" checked class="text-olive-700 focus:ring-olive-600 w-4 h-4">
+              <span class="text-sm font-medium text-olive-900">${gData.p1}</span>
+            </label>
+            <label class="flex items-center space-x-2.5 p-3 rounded-xl border border-olive-300 bg-white cursor-pointer hover:bg-olive-50 transition has-[:checked]:border-olive-700 has-[:checked]:bg-olive-200/60">
+              <input type="radio" name="whoAttends" value="${gData.p2}" class="text-olive-700 focus:ring-olive-600 w-4 h-4">
+              <span class="text-sm font-medium text-olive-900">${gData.p2}</span>
+            </label>
+          </div>
+        </div>
+      `;
+
+    } else if (gData.tipo === "individual_plus") {
+      // CASO 2: INDIVIDUAL CON DERECHO A ACOMPAÑANTE
+      container.innerHTML = `
+        <label class="flex items-center space-x-3 p-3.5 rounded-xl border-2 border-olive-200 cursor-pointer hover:bg-olive-50 transition has-[:checked]:border-olive-700 has-[:checked]:bg-olive-100/60">
+          <input type="radio" name="attendanceChoice" value="solo" checked onchange="handlePlusToggle()" class="text-olive-700 focus:ring-olive-600 w-4 h-4">
+          <span class="font-medium text-olive-900 text-sm">👤 Vengo solo/a (1 persona)</span>
+        </label>
+        <label class="flex items-center space-x-3 p-3.5 rounded-xl border-2 border-olive-200 cursor-pointer hover:bg-olive-50 transition has-[:checked]:border-olive-700 has-[:checked]:bg-olive-100/60">
+          <input type="radio" name="attendanceChoice" value="con_acomp" onchange="handlePlusToggle()" class="text-olive-700 focus:ring-olive-600 w-4 h-4">
+          <span class="font-medium text-olive-900 text-sm">👥 Voy con acompañante (2 personas)</span>
+        </label>
+        <label class="flex items-center space-x-3 p-3.5 rounded-xl border-2 border-olive-200 cursor-pointer hover:bg-olive-50 transition has-[:checked]:border-olive-700 has-[:checked]:bg-olive-100/60">
+          <input type="radio" name="attendanceChoice" value="ninguno" onchange="handlePlusToggle()" class="text-olive-700 focus:ring-olive-600 w-4 h-4">
+          <span class="font-medium text-olive-900 text-sm">Sintiéndolo mucho, no podré asistir</span>
+        </label>
+      `;
+
+      detailsWrapper.innerHTML = `
+        <div id="plusAcompBox" class="bg-olive-50/70 p-4 rounded-2xl border border-olive-300">
+          <label for="companionNameInput" class="block font-serif text-sm font-semibold text-olive-900 mb-1">
+            Nombre y Apellidos de tu acompañante <span class="text-red-500">*</span>
+          </label>
+          <input type="text" id="companionNameInput" placeholder="Indica su nombre y apellidos completos" class="w-full px-4 py-2.5 rounded-xl border border-olive-300 focus:ring-2 focus:ring-olive-600 outline-none bg-white text-sm transition">
+        </div>
+      `;
+
+    } else {
+      // CASO 3: INVITACIÓN ÚNICA
+      container.innerHTML = `
+        <label class="flex items-center space-x-3 p-3.5 rounded-xl border-2 border-olive-200 cursor-pointer hover:bg-olive-50 transition has-[:checked]:border-olive-700 has-[:checked]:bg-olive-100/60">
+          <input type="radio" name="attendanceChoice" value="solo" checked onchange="handleSingleToggle()" class="text-olive-700 focus:ring-olive-600 w-4 h-4">
+          <span class="font-medium text-olive-900 text-sm">👤 ¡Sí, allí estaré! ✨ (1 persona)</span>
+        </label>
+        <label class="flex items-center space-x-3 p-3.5 rounded-xl border-2 border-olive-200 cursor-pointer hover:bg-olive-50 transition has-[:checked]:border-olive-700 has-[:checked]:bg-olive-100/60">
+          <input type="radio" name="attendanceChoice" value="ninguno" onchange="handleSingleToggle()" class="text-olive-700 focus:ring-olive-600 w-4 h-4">
+          <span class="font-medium text-olive-900 text-sm">Sintiéndolo mucho, no podré asistir</span>
+        </label>
+      `;
+    }
+  }
+
+  function handleCoupleToggle() {
+    const val = document.querySelector('input[name="attendanceChoice"]:checked').value;
+    const detailsWrapper = document.getElementById('customDetailsWrapper');
+    const dietSection = document.getElementById('dietSection');
+    const songSection = document.getElementById('songSection');
+
+    if (val === 'solo_uno') {
+      detailsWrapper.classList.remove('hidden');
+      dietSection.classList.remove('hidden');
+      songSection.classList.remove('hidden');
+    } else if (val === 'ninguno') {
+      detailsWrapper.classList.add('hidden');
+      dietSection.classList.add('hidden');
+      songSection.classList.add('hidden');
+    } else {
+      detailsWrapper.classList.add('hidden');
+      dietSection.classList.remove('hidden');
+      songSection.classList.remove('hidden');
+    }
+  }
+
+  function handlePlusToggle() {
+    const val = document.querySelector('input[name="attendanceChoice"]:checked').value;
+    const detailsWrapper = document.getElementById('customDetailsWrapper');
+    const dietSection = document.getElementById('dietSection');
+    const songSection = document.getElementById('songSection');
+
+    if (val === 'con_acomp') {
+      detailsWrapper.classList.remove('hidden');
+      dietSection.classList.remove('hidden');
+      songSection.classList.remove('hidden');
+    } else if (val === 'ninguno') {
+      detailsWrapper.classList.add('hidden');
+      dietSection.classList.add('hidden');
+      songSection.classList.add('hidden');
+    } else {
+      detailsWrapper.classList.add('hidden');
+      dietSection.classList.remove('hidden');
+      songSection.classList.remove('hidden');
+    }
+  }
+
+  function handleSingleToggle() {
+    const val = document.querySelector('input[name="attendanceChoice"]:checked').value;
+    const dietSection = document.getElementById('dietSection');
+    const songSection = document.getElementById('songSection');
+
+    if (val === 'ninguno') {
+      dietSection.classList.add('hidden');
+      songSection.classList.add('hidden');
+    } else {
+      dietSection.classList.remove('hidden');
+      songSection.classList.remove('hidden');
+    }
+  }
+
   /* Fullscreen Hogwarts Invitation Entry Logic */
   const magicEntranceGate = document.getElementById('magicEntranceGate');
   const revealedLetterModal = document.getElementById('revealedLetterModal');
@@ -990,47 +1116,58 @@
     }
   }
 
-  /* Control dinámico de acompañante (Solo / Con acompañante) */
-  function handleCompanionToggle() {
-    const selectedMode = document.querySelector('input[name="companionMode"]:checked').value;
-    const nameBox = document.getElementById('companionNameBox');
-    const companionInput = document.getElementById('companionName');
-
-    if (selectedMode === 'acompanante') {
-      nameBox.classList.remove('hidden');
-      companionInput.focus();
-    } else {
-      nameBox.classList.add('hidden');
-      companionInput.value = '';
-    }
-  }
-
-  /* Ocultar sección de acompañantes si selecciona que no asistirá */
-  document.querySelectorAll('input[name="attendance"]').forEach(radio => {
-    radio.addEventListener('change', function() {
-      const companionsWrapper = document.getElementById('companionsWrapper');
-      if (this.value === 'no') {
-        companionsWrapper.classList.add('hidden');
-      } else {
-        companionsWrapper.classList.remove('hidden');
-      }
-    });
-  });
-
-  /* RSVP Form Handling Conectado a Google Sheets */
+  // Envío del Formulario a Google Sheets
   async function handleFormSubmit(event) {
     event.preventDefault();
 
-    const attendance = document.querySelector('input[name="attendance"]:checked').value;
-    const isAttending = (attendance === 'si');
-    const companionMode = isAttending ? document.querySelector('input[name="companionMode"]:checked').value : 'solo';
-    const companionNameInput = document.getElementById('companionName');
-    const companionNameVal = companionNameInput.value.trim();
+    const choice = document.querySelector('input[name="attendanceChoice"]:checked').value;
+    let isAttending = (choice !== 'ninguno');
+    let personas = 0;
+    let modalidad = '';
+    let acompanante = '';
 
-    if (isAttending && companionMode === 'acompanante' && companionNameVal === '') {
-      alert('Por favor, indica el nombre y apellidos de tu acompañante.');
-      companionNameInput.focus();
-      return;
+    if (currentGuestData && currentGuestData.tipo === 'pareja') {
+      if (choice === 'ambos') {
+        personas = 2;
+        modalidad = 'Van los dos';
+        acompanante = `${currentGuestData.p1} y ${currentGuestData.p2}`;
+      } else if (choice === 'solo_uno') {
+        personas = 1;
+        const whoSelected = document.querySelector('input[name="whoAttends"]:checked').value;
+        modalidad = 'Solo uno de los dos';
+        acompanante = `Asiste únicamente: ${whoSelected}`;
+      } else {
+        personas = 0;
+        modalidad = 'No asisten';
+      }
+    } else if (currentGuestData && currentGuestData.tipo === 'individual_plus') {
+      if (choice === 'con_acomp') {
+        const acompInput = document.getElementById('companionNameInput');
+        const acompVal = acompInput ? acompInput.value.trim() : '';
+        if (!acompVal) {
+          alert('Por favor, indica el nombre y apellidos de tu acompañante.');
+          acompInput.focus();
+          return;
+        }
+        personas = 2;
+        modalidad = 'Con acompañante';
+        acompanante = acompVal;
+      } else if (choice === 'solo') {
+        personas = 1;
+        modalidad = 'Solo/a';
+      } else {
+        personas = 0;
+        modalidad = 'No asiste';
+      }
+    } else {
+      // Individual estricto
+      if (choice === 'solo') {
+        personas = 1;
+        modalidad = 'Individual (1 persona)';
+      } else {
+        personas = 0;
+        modalidad = 'No asiste';
+      }
     }
 
     const submitBtn = document.getElementById('submitBtn');
@@ -1039,9 +1176,6 @@
     submitBtn.innerHTML = `<span>Enviando lechuza... ⏳</span>`;
 
     const name = document.getElementById('fullName').value.trim();
-    const totalPersonas = !isAttending ? 0 : (companionMode === 'acompanante' ? 2 : 1);
-    const companionFinal = (isAttending && companionMode === 'acompanante') ? companionNameVal : '';
-
     const selectedDiets = Array.from(document.querySelectorAll('input[name="diet"]:checked'))
       .map(cb => cb.value)
       .join(', ');
@@ -1050,17 +1184,20 @@
     const dedication = document.getElementById('dedication').value.trim();
 
     const payload = {
+      idInvitado: currentGuestId,
+      parte: currentGuestData ? currentGuestData.parte : "General",
       nombre: name,
       asistencia: isAttending ? 'Sí' : 'No',
-      personas: totalPersonas,
-      acompanante: companionFinal,
+      personas: personas,
+      modalidad: modalidad,
+      acompanante: acompanante,
       alergias: selectedDiets || 'Ninguna indicada',
       detallesAlergias: dietDetails,
       cancion: favoriteSong,
       dedicatoria: dedication
     };
 
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzK-xjeH6b42Vt9EEleswGeg8Twfj2Pz1cJL5zpcsMnKiyXj1-W3_oXkUFUDGpqVcp9Tg/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxxgGQI8w6y2faKIASrklHAlTFnrCUDA1t8xn4haextaVEnVHoPJAR1qZMQjQQ4GANB/exec";
 
     try {
       await fetch(SCRIPT_URL, {
@@ -1075,9 +1212,9 @@
       const successText = document.getElementById('rsvpSuccessText');
 
       if (isAttending) {
-        successText.textContent = companionMode === 'acompanante'
-          ? `¡Qué alegría, ${name}! Hemos registrado vuestra asistencia (acompañado/a de ${companionFinal}). Tenemos todo preparado para celebrar el 27 de febrero de 2027 por todo lo alto.`
-          : `¡Qué alegría, ${name}! Tu asistencia ha quedado confirmada. Tenemos todo preparado para celebrar el 27 de febrero de 2027 por todo lo alto.`;
+        successText.textContent = personas === 2
+          ? `¡Qué alegría! Hemos registrado vuestra asistencia para 2 personas (${name}). ¡Estamos deseando celebrar el 27 de febrero de 2027 juntos!`
+          : `¡Qué alegría! Hemos registrado la asistencia de 1 persona (${name}). ¡Estamos deseando verte el 27 de febrero de 2027!`;
 
         if (typeof confetti === 'function') {
           confetti({
@@ -1088,7 +1225,7 @@
           });
         }
       } else {
-        successText.textContent = `Muchas gracias por avisarnos, ${name}. Sentiremos mucho no tenerte con nosotros ese día, pero brindaremos por ti.`;
+        successText.textContent = `Muchas gracias por avisarnos. Sentiremos mucho no teneros con nosotros ese día, pero brindaremos por vosotros.`;
       }
 
       form.classList.add('hidden');
@@ -1102,123 +1239,18 @@
     }
   }
 
-  /* -------------------------------------------------------------
-     MAPA 1: HOSPEDAJE ASEQUIBLE Y DE CALIDAD (CENTRO Y PLAYA)
-     ------------------------------------------------------------- */
+  /* MAPAS INTERACTIVOS */
   const hoteles = [
-    // ALICANTE CENTRO (Cerca de la Ceremonia / Ayuntamiento)
-    { 
-      nombre: "Eurostars Lucentum (4★)", 
-      zona: "Centro", 
-      cat: "centro", 
-      tipo: "🏛️ Confort Céntrico", 
-      lat: 38.3461, 
-      lng: -0.4853, 
-      precio: "Desde ~75-90€ / noche", 
-      desc: "En Alfonso el Sabio junto al Mercado Central. Habitaciones amplias y parada de TRAM en la misma puerta.", 
-      url: "Eurostars+Lucentum+Alicante" 
-    },
-    { 
-      nombre: "B&B Hotel Alicante Centro (3★)", 
-      zona: "Centro", 
-      cat: "centro", 
-      tipo: "🏛️ Moderno & Funcional", 
-      lat: 38.3441, 
-      lng: -0.4905, 
-      precio: "Desde ~60-75€ / noche", 
-      desc: "Excelente relación calidad-precio junto a la estación de tren y zona comercial de Maisonnave.", 
-      url: "B%26B+Hotel+Alicante+Centro" 
-    },
-    { 
-      nombre: "Sercotel Maya Alicante (3★)", 
-      zona: "Centro / Castillo", 
-      cat: "centro", 
-      tipo: "🏛️ Práctico & Vistas", 
-      lat: 38.3524, 
-      lng: -0.4762, 
-      precio: "Desde ~65-80€ / noche", 
-      desc: "A los pies del Castillo de Santa Bárbara. Con piscina, parking y parada de TRAM directa hacia San Juan.", 
-      url: "Sercotel+Maya+Alicante" 
-    },
-    { 
-      nombre: "Hotel Leuka (3★)", 
-      zona: "Centro", 
-      cat: "centro", 
-      tipo: "🏛️ Económico & Tranquilo", 
-      lat: 38.3475, 
-      lng: -0.4930, 
-      precio: "Desde ~55-70€ / noche", 
-      desc: "Hotel tranquilo en zona céntrica residencial, muy cómodo para descansar a buen precio.", 
-      url: "Hotel+Leuka+Alicante" 
-    },
-    { 
-      nombre: "Hotel Serawa Alicante (4★)", 
-      zona: "Centro Histórico", 
-      cat: "centro", 
-      tipo: "🏛️ Eco Boutique", 
-      lat: 38.3449, 
-      lng: -0.4828, 
-      precio: "Desde ~95-115€ / noche", 
-      desc: "Hotel boutique ecológico y sostenible a 2 minutos andando del Ayuntamiento de Alicante.", 
-      url: "Hotel+Serawa+Alicante" 
-    },
-
-    // PLAYA DE SAN JUAN (Cerca de Finca Santa Luzia)
-    { 
-      nombre: "Hotel Castilla Alicante (3★)", 
-      zona: "Playa San Juan", 
-      cat: "playa", 
-      tipo: "🏖️ Playa & Calidad-Precio", 
-      lat: 38.3695, 
-      lng: -0.4262, 
-      precio: "Desde ~60-80€ / noche", 
-      desc: "A solo 200m de la playa. Cuenta con piscina, parking y habitaciones confortables ideales para el fin de semana.", 
-      url: "Hotel+Castilla+Alicante" 
-    },
-    { 
-      nombre: "Port Alicante City & Beach (4★)", 
-      zona: "Playa San Juan", 
-      cat: "playa", 
-      tipo: "🏖️ 4★ Confort & Relax", 
-      lat: 38.3662, 
-      lng: -0.4305, 
-      precio: "Desde ~75-95€ / noche", 
-      desc: "Totalmente renovado, con piscinas, gimnasio y situado a escasos minutos de Finca Santa Luzia.", 
-      url: "Port+Hotel+Alicante+City+%26+Beach" 
-    },
-    { 
-      nombre: "Hotel Alicante Golf (4★)", 
-      zona: "Playa San Juan", 
-      cat: "playa", 
-      tipo: "🏖️ Jardines & Confort", 
-      lat: 38.3693, 
-      lng: -0.4365, 
-      precio: "Desde ~85-105€ / noche", 
-      desc: "Rodeado de jardines y campo de golf, tranquilidad total muy cerca del convite.", 
-      url: "Hotel+Alicante+Golf" 
-    },
-    { 
-      nombre: "Hotel Albahía Alicante (3★)", 
-      zona: "Albufereta / Costa", 
-      cat: "playa", 
-      tipo: "🏖️ Frente al Mar", 
-      lat: 38.3601, 
-      lng: -0.4571, 
-      precio: "Desde ~55-75€ / noche", 
-      desc: "En primera línea de cala entre el centro y San Juan. Vistas al Mediterráneo y TRAM a pie de hotel.", 
-      url: "Hotel+Albahia+Alicante" 
-    },
-    { 
-      nombre: "Hotel Santa Faz (2★)", 
-      zona: "Santa Faz / San Juan", 
-      cat: "playa", 
-      tipo: "🏖️ Tradicional & Económico", 
-      lat: 38.3888, 
-      lng: -0.4431, 
-      precio: "Desde ~50-65€ / noche", 
-      desc: "Alojamiento acogedor y económico con excelentes opiniones en la histórica y tranquila pedanía de Santa Faz.", 
-      url: "Hotel+Santa+Faz+Alicante" 
-    }
+    { nombre: "Eurostars Lucentum (4★)", zona: "Centro", cat: "centro", tipo: "🏛️ Confort Céntrico", lat: 38.3461, lng: -0.4853, precio: "Desde ~75-90€ / noche", desc: "En Alfonso el Sabio junto al Mercado Central. Habitaciones amplias y parada de TRAM en la misma puerta.", url: "Eurostars+Lucentum+Alicante" },
+    { nombre: "B&B Hotel Alicante Centro (3★)", zona: "Centro", cat: "centro", tipo: "🏛 Moderno & Funcional", lat: 38.3441, lng: -0.4905, precio: "Desde ~60-75€ / noche", desc: "Excelente relación calidad-precio junto a la estación de tren y zona comercial de Maisonnave.", url: "B%26B+Hotel+Alicante+Centro" },
+    { nombre: "Sercotel Maya Alicante (3★)", zona: "Centro / Castillo", cat: "centro", tipo: "🏛️ Práctico & Vistas", lat: 38.3524, lng: -0.4762, precio: "Desde ~65-80€ / noche", desc: "A los pies del Castillo de Santa Bárbara. Con piscina, parking y parada de TRAM directa hacia San Juan.", url: "Sercotel+Maya+Alicante" },
+    { nombre: "Hotel Leuka (3★)", zona: "Centro", cat: "centro", tipo: "🏛 Económico & Tranquilo", lat: 38.3475, lng: -0.4930, precio: "Desde ~55-70€ / noche", desc: "Hotel tranquilo en zona céntrica residencial, muy cómodo para descansar a buen precio.", url: "Hotel+Leuka+Alicante" },
+    { nombre: "Hotel Serawa Alicante (4★)", zona: "Centro Histórico", cat: "centro", tipo: "🏛️ Eco Boutique", lat: 38.3449, lng: -0.4828, precio: "Desde ~95-115€ / noche", desc: "Hotel boutique ecológico y sostenible a 2 minutos andando del Ayuntamiento de Alicante.", url: "Hotel+Serawa+Alicante" },
+    { nombre: "Hotel Castilla Alicante (3★)", zona: "Playa San Juan", cat: "playa", tipo: "🏖️ Playa & Calidad-Precio", lat: 38.3695, lng: -0.4262, precio: "Desde ~60-80€ / noche", desc: "A solo 200m de la playa. Cuenta con piscina, parking y habitaciones confortables ideales para el fin de semana.", url: "Hotel+Castilla+Alicante" },
+    { nombre: "Port Alicante City & Beach (4★)", zona: "Playa San Juan", cat: "playa", tipo: "🏖️ 4★ Confort & Relax", lat: 38.3662, lng: -0.4305, precio: "Desde ~75-95€ / noche", desc: "Totalmente renovado, con piscinas, gimnasio y situado a escasos minutos de Finca Santa Luzia.", url: "Port+Hotel+Alicante+City+%26+Beach" },
+    { nombre: "Hotel Alicante Golf (4★)", zona: "Playa San Juan", cat: "playa", tipo: "🏖 Jardines & Confort", lat: 38.3693, lng: -0.4365, precio: "Desde ~85-105€ / noche", desc: "Rodeado de jardines y campo de golf, tranquilidad total muy cerca del convite.", url: "Hotel+Alicante+Golf" },
+    { nombre: "Hotel Albahía Alicante (3★)", zona: "Albufereta / Costa", cat: "playa", tipo: "🏖️ Frente al Mar", lat: 38.3601, lng: -0.4571, precio: "Desde ~55-75€ / noche", desc: "En primera línea de cala entre el centro y San Juan. Vistas al Mediterráneo y TRAM a pie de hotel.", url: "Hotel+Albahia+Alicante" },
+    { nombre: "Hotel Santa Faz (2★)", zona: "Santa Faz / San Juan", cat: "playa", tipo: "🏖️ Tradicional & Económico", lat: 38.3888, lng: -0.4431, precio: "Desde ~50-65€ / noche", desc: "Alojamiento acogedor y económico con excelentes opiniones en la histórica y tranquila pedanía de Santa Faz.", url: "Hotel+Santa+Faz+Alicante" }
   ];
 
   let mapHoteles;
@@ -1228,12 +1260,9 @@
     const mapEl = document.getElementById('hotelesMap');
     if (!mapEl) return;
 
-    mapHoteles = L.map('hotelesMap', {
-      scrollWheelZoom: false
-    }).setView([38.3580, -0.4580], 12);
-
+    mapHoteles = L.map('hotelesMap', { scrollWheelZoom: false }).setView([38.3580, -0.4580], 12);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      attribution: '&copy; OpenStreetMap',
       maxZoom: 19
     }).addTo(mapHoteles);
 
@@ -1264,10 +1293,7 @@
         </div>
       `;
 
-      const marker = L.marker([item.lat, item.lng], { icon: customIcon })
-        .bindPopup(popupContent)
-        .addTo(mapHoteles);
-
+      const marker = L.marker([item.lat, item.lng], { icon: customIcon }).bindPopup(popupContent).addTo(mapHoteles);
       marker.category = item.cat;
       allHotelMarkers.push(marker);
     });
@@ -1289,11 +1315,7 @@
     });
   }
 
-  /* -------------------------------------------------------------
-     MAPA 2: GASTRONOMÍA, TAPAS, BURGERS Y SUSHI
-     ------------------------------------------------------------- */
   const restaurantes = [
-    // 🍢 TAPAS & MEDITERRÁNEO
     { nombre: "Restaurante TOCH", cat: "tapas", zona: "Playa San Juan", tipo: "🍢 Mediterráneo & Arroces", lat: 38.3688, lng: -0.4208, desc: "Restaurante mediterráneo a pie de playa con arroces a leña y terraza privilegiada.", url: "Restaurante+TOCH+Playa+San+Juan+Alicante" },
     { nombre: "Restaurante Mediterráneo", cat: "tapas", zona: "Playa San Juan", tipo: "🍢 Mediterráneo de Paseo", lat: 38.3639, lng: -0.4239, desc: "En plena Avenida de Niza en primera línea de playa. Pescados, salazones y tapeo marinero.", url: "Restaurante+Mediterraneo+Avenida+Niza+San+Juan+Alicante" },
     { nombre: "Cervecería Sento Playa", cat: "tapas", zona: "Playa San Juan", tipo: "🍢 Montaditos & Tapas", lat: 38.3719, lng: -0.4285, desc: "Famoso por sus tapas gourmet y montaditos templados de solomillo y foie en Vicente Ramos.", url: "Cerveceria+Sento+Playa+San+Juan+Alicante" },
@@ -1304,22 +1326,16 @@
     { nombre: "Bar El Cantó", cat: "tapas", zona: "Centro", tipo: "🍢 Clásico de Barra", lat: 38.3437, lng: -0.4883, desc: "Templo del montadito caliente y del tapeo tradicional alicantino.", url: "Bar+El+Canto+Alicante" },
     { nombre: "Cervecería Sento Rambla", cat: "tapas", zona: "Centro", tipo: "🍢 Montaditos de Autor", lat: 38.3448, lng: -0.4849, desc: "Montaditos templados creativos y marisquito en barra en plena Rambla.", url: "Cerveceria+Sento+Rambla+Alicante" },
     { nombre: "El Garaje Bar", cat: "tapas", zona: "Centro", tipo: "🍢 Terraza & Tapas", lat: 38.3435, lng: -0.4862, desc: "Tardeo y tapeo bajo los ficus centenarios de la Plaza Gabriel Miró.", url: "El+Garaje+Bar+Alicante" },
-
-    // 🍔 BURGERS
     { nombre: "Circo Burger San Juan", cat: "burger", zona: "Playa San Juan", tipo: "🍔 Smash Burger & Gourmet", lat: 38.3635, lng: -0.4278, desc: "En Av. Costa Blanca a una calle de la playa. Smash burgers de vaca vieja y pan brioche casero.", url: "Circo+Burger+Playa+San+Juan+Alicante" },
     { nombre: "RedLine Burger San Juan", cat: "burger", zona: "Playa San Juan", tipo: "🍔 Smash Burgers", lat: 38.3670, lng: -0.4255, desc: "Especialistas en smash burgers crujientes, patatas cargadas y salsas de receta propia en C/ Curricán.", url: "RedLine+Burger+San+Juan+Playa+Alicante" },
     { nombre: "El Rancho de Fontana", cat: "burger", zona: "Playa San Juan", tipo: "🍔 Burgers & Patatas Rellenas", lat: 38.3658, lng: -0.4285, desc: "Un icono desenfadado en el C.C. Fontana con raciones gigantes, hamburguesas y más de 20 salsas.", url: "El+Rancho+de+Fontana+Playa+San+Juan+Alicante" },
     { nombre: "Circo Burger Centro", cat: "burger", zona: "Centro", tipo: "🍔 Smash Burger Gourmet", lat: 38.3432, lng: -0.4880, desc: "Referente absoluto de hamburguesas en el centro (calle Teatro). Carne madurada y pan brioche.", url: "Circo+Burger+Alicante+Centro" },
     { nombre: "Tepuy Burger Centro", cat: "burger", zona: "Centro", tipo: "🍔 Burger de Autor", lat: 38.3465, lng: -0.4855, desc: "Hamburguesas premiadas a nivel nacional con combinaciones creativas y carnes de primera.", url: "Tepuy+Burger+Alicante" },
-
-    // 🌮 MEXICANO
     { nombre: "AY MAMACITA", cat: "mexicano", zona: "Playa San Juan", tipo: "🌮 Street Food & Birria", lat: 38.3618, lng: -0.4431, desc: "Tacos callejeros al pastor, quesabirrias, nachos bien cargados y margaritas en Av. Condomina.", url: "AY+MAMACITA+Alicante" },
     { nombre: "Taquería El Chavo Playa", cat: "mexicano", zona: "Playa San Juan", tipo: "🌮 Taquería Mexicana", lat: 38.3690, lng: -0.4310, desc: "Tacos al pastor al corte, gringas y guacamole preparado al momento.", url: "Taqueria+San+Juan+Playa+Alicante" },
     { nombre: "MEXICAN GRANNY", cat: "mexicano", zona: "Centro", tipo: "🌮 Cocina Casera Mexicana", lat: 38.3562, lng: -0.4875, desc: "Recetas tradicionales de abuela mexicana, tacos al pastor y guisos caseros auténticos.", url: "MEXICAN+GRANNY+Alicante" },
     { nombre: "Plaza Mexico", cat: "mexicano", zona: "Centro", tipo: "🌮 Taquería & Cócteles", lat: 38.3451, lng: -0.4871, desc: "Taquería en calle Castaños, ideal para cenar tacos y probar cócteles mexicanos.", url: "Plaza+Mexico+Alicante" },
     { nombre: "Los 3 Carnalitos", cat: "mexicano", zona: "Centro", tipo: "🌮 Taquería Tradicional", lat: 38.3444, lng: -0.4867, desc: "Tacos de birria con su consomé especiado y sazón genuino en Médico Manero Mollà.", url: "Los+3+Carnalitos+Alicante" },
-
-    // 🍣 JAPONÉS & RAMEN
     { nombre: "Kazoku", cat: "japones", zona: "Playa San Juan", tipo: "🍣 Sushi & Fusión", lat: 38.3625, lng: -0.4442, desc: "Pescado fresco de lonja, uramakis de autor y menús equilibrados en Av. de la Condomina.", url: "Restaurante+Kazoku+Alicante" },
     { nombre: "Ramen Tatsunoya", cat: "japones", zona: "Playa San Juan", tipo: "🍜 Ramen Tradicional", lat: 38.3698, lng: -0.4320, desc: "Boles reconfortantes de fideos artesanales con caldos caseros en Historiador Vicente Ramos.", url: "Ramen+Tatsunoya+Alicante" },
     { nombre: "Wasabi San Juan", cat: "japones", zona: "Playa San Juan", tipo: "🍣 Sushi & Rolls", lat: 38.3705, lng: -0.4290, desc: "Rolls fusión, tartares frescos y platos calientes japoneses en zona Fontana.", url: "Wasabi+San+Juan+Alicante" },
@@ -1337,12 +1353,9 @@
     const mapElement = document.getElementById('alicanteMap');
     if (!mapElement) return;
 
-    mapRestaurantes = L.map('alicanteMap', {
-      scrollWheelZoom: false
-    }).setView([38.3580, -0.4580], 12);
-
+    mapRestaurantes = L.map('alicanteMap', { scrollWheelZoom: false }).setView([38.3580, -0.4580], 12);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      attribution: '&copy; OpenStreetMap',
       maxZoom: 19
     }).addTo(mapRestaurantes);
 
@@ -1383,10 +1396,7 @@
         </div>
       `;
 
-      const marker = L.marker([item.lat, item.lng], { icon: customIcon })
-        .bindPopup(popupContent)
-        .addTo(mapRestaurantes);
-
+      const marker = L.marker([item.lat, item.lng], { icon: customIcon }).bindPopup(popupContent).addTo(mapRestaurantes);
       marker.category = item.cat;
       allMarkers.push(marker);
     });
@@ -1408,7 +1418,9 @@
     });
   }
 
+  // Inicialización
   document.addEventListener('DOMContentLoaded', () => {
+    personalizarInvitacion();
     initAlicanteMap();
     initHotelesMap();
   });
